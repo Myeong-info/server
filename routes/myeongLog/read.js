@@ -7,19 +7,19 @@ const prisma = new PrismaClient();
 
 const get = async (req, res) => {
     try {
-        const { id } = req.param;
+        const { id } = req.params;
         const blog = await prisma.blog.findFirst({
-            where: { id },
-        });
-        const viewUpdate = await prisma.blog.update({
-            where: { id: blog.id },
-            data: { views: blog.views + 1 },
+            where: { id: parseInt(id) },
         });
         if (!blog) {
             return res
                 .status(statusCode.NOT_FOUND)
                 .send(successTrue(statusCode.NOT_FOUND, responseMessage.NOT_FOUND_BLOG));
         }
+        const viewUpdate = await prisma.blog.update({
+            where: { id: blog.id },
+            data: { views: blog.views + 1 },
+        });
         return res.status(statusCode.OK).send(successTrue(statusCode.OK, responseMessage.BLOG_GET_SUCCESS, viewUpdate));
     } catch (err) {
         console.error(err);
