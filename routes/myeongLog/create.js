@@ -27,8 +27,9 @@ const create = async (req, res) => {
                     await prisma.tag.create({
                         data: { name: tag },
                     });
+                    return { id: existingTag.id };
                 }
-                console.log(existingTag);
+
                 return { id: existingTag.id };
             })
         );
