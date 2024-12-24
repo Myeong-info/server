@@ -2,7 +2,6 @@ const { PrismaClient } = require('@prisma/client');
 const statusCode = require('../../util/statusCode');
 const { successFalse, successTrue } = require('../../util/response');
 const responseMessage = require('../../util/responseMessage');
-const { connect } = require('.');
 const prisma = new PrismaClient();
 
 const create = async (req, res) => {
